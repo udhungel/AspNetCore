@@ -40,13 +40,15 @@ namespace AspNetCore
                 app.UseHsts();
             }
             // it must be registered before UseStatic 
-            DefaultFilesOptions defaultFilesOptions = new DefaultFilesOptions();
-            defaultFilesOptions.DefaultFileNames.Clear();
-            defaultFilesOptions.DefaultFileNames.Add("foo.html"); // this is done in case we was something than default.html 
+            FileServerOptions fileServerOptions = new FileServerOptions();
+            fileServerOptions.DefaultFilesOptions.DefaultFileNames.Clear();
+            fileServerOptions.DefaultFilesOptions.DefaultFileNames.Add("foo.html"); 
 
-            app.UseDefaultFiles(defaultFilesOptions);
-            //register static files for root folder
-            app.UseStaticFiles();
+            //app.UseDefaultFiles(defaultFilesOptions);
+            ////register static files for root folder
+            //app.UseStaticFiles();
+
+            app.UseFileServer(fileServerOptions);
 
            
 
