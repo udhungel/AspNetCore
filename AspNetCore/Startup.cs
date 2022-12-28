@@ -39,6 +39,16 @@ namespace AspNetCore
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            // it must be registered before UseStatic 
+            DefaultFilesOptions defaultFilesOptions = new DefaultFilesOptions();
+            defaultFilesOptions.DefaultFileNames.Clear();
+            defaultFilesOptions.DefaultFileNames.Add("foo.html"); // this is done in case we was something than default.html 
+
+            app.UseDefaultFiles(defaultFilesOptions);
+            //register static files for root folder
+            app.UseStaticFiles();
+
+           
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
