@@ -32,30 +32,22 @@ namespace AspNetCore
         {
             if (env.IsDevelopment())
             {
-                DeveloperExceptionPageOptions developerExceptionPageOptions = new DeveloperExceptionPageOptions
-                {
-                    SourceCodeLineCount = 10
-                };
-                app.UseDeveloperExceptionPage(developerExceptionPageOptions);
+                app.UseDeveloperExceptionPage();
             }
-            app.Run(async (context) =>
-             {
-                 throw new Exception("Some Error Proccessing ");
-                 await context.Response.WriteAsync("Hello world");
-                 //app.UseExceptionHandler("/Error Some Error occured ");
-                 //// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                 //app.UseHsts();
-             });     
-            //combines UseDefaultFiles and UseStaticFiles 
-            // when we issue a request it is handles here by UserFileServer
-            // Any execption will not be seen
-            
-            app.UseFileServer();
-
-           
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.Run(async (context) =>
+            {
+                await context.Response.WriteAsync("Hosting Environment:" + env.EnvironmentName);
+            });
 
             app.UseRouting();
 
