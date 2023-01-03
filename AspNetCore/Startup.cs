@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,24 +32,25 @@ namespace AspNetCore
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                DeveloperExceptionPageOptions developerExceptionPageOptions = new DeveloperExceptionPageOptions
+                {
+                    SourceCodeLineCount = 10
+                };
+                app.UseDeveloperExceptionPage(developerExceptionPageOptions);
             }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
-            // it must be registered before UseStatic 
-            FileServerOptions fileServerOptions = new FileServerOptions();
-            fileServerOptions.DefaultFilesOptions.DefaultFileNames.Clear();
-            fileServerOptions.DefaultFilesOptions.DefaultFileNames.Add("foo.html"); 
-
-            //app.UseDefaultFiles(defaultFilesOptions);
-            ////register static files for root folder
-            //app.UseStaticFiles();
-
-            app.UseFileServer(fileServerOptions);
+            app.Run(async (context) =>
+             {
+                 throw new Exception("Some Error Proccessing ");
+                 await context.Response.WriteAsync("Hello world");
+                 //app.UseExceptionHandler("/Error Some Error occured ");
+                 //// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                 //app.UseHsts();
+             });     
+            //combines UseDefaultFiles and UseStaticFiles 
+            // when we issue a request it is handles here by UserFileServer
+            // Any execption will not be seen
+            
+            app.UseFileServer();
 
            
 
