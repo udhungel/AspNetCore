@@ -24,7 +24,9 @@ namespace AspNetCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc(options=>options.EnableEndpointRouting = false);
             services.AddRazorPages();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,13 +44,12 @@ namespace AspNetCore
             }
 
             app.UseHttpsRedirection();
+
+            
+
             app.UseStaticFiles();
 
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hosting Environment:" + env.EnvironmentName);
-            });
-
+            
             app.UseRouting();
 
             app.UseAuthorization();
@@ -57,6 +58,10 @@ namespace AspNetCore
             {
                 endpoints.MapRazorPages();
             });
+
+            app.UseMvcWithDefaultRoute();
+
+
         }
     }
 }
