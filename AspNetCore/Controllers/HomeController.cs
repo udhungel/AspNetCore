@@ -5,7 +5,7 @@ namespace EmployeeManagement_AspNetCore.Controllers
 {
     public class HomeController : Controller
     {
-        private IEmployeeRepository _employeeRepository;
+        private readonly IEmployeeRepository _employeeRepository; 
 
         public HomeController(IEmployeeRepository employeeRepository) 
         { 
@@ -15,6 +15,11 @@ namespace EmployeeManagement_AspNetCore.Controllers
         public string Index()
         {
            return _employeeRepository.GetEmployee(1).Name; 
+        }
+        public ViewResult Details()
+        {
+            var model = _employeeRepository.GetEmployee(1);
+            return View(model);
         }
     }
 }
