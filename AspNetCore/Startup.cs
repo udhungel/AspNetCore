@@ -1,3 +1,5 @@
+using EmployeeManagement_AspNetCore.Interface;
+using EmployeeManagement_AspNetCore.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -26,6 +28,7 @@ namespace AspNetCore
         {
             services.AddMvc(options=>options.EnableEndpointRouting = false);
             services.AddRazorPages();
+            services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();
 
         }
 
