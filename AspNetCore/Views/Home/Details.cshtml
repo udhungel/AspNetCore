@@ -6,8 +6,17 @@
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    <div>
-        <h1>Details.cshtml from home folder</h1>
-    </div>
+    
+        <h3>@ViewData["PageTitle"]</h3>
+        @{
+            //if you are storing anything then string in ViewData Dictionary
+            //you have to explicitly cast to to that dataType 
+            //for our case we are storing a employee model 
+            var employee = ViewData["Employee"] as EmployeeManagement_AspNetCore.Models.Employee ; 
+        }
+        <div>Name : @employee.Name</div>
+        <div>Email: @employee.Email</div>
+        <div>Department : @employee.Department</div>
+   
 </body>
 </html>
