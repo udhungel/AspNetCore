@@ -1,4 +1,4 @@
-﻿@model EmployeeManagement_AspNetCore.Models.Employee;
+﻿@model EmployeeManagement_AspNetCore.ViewModel.HomeDetailsViewModel;
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,9 +9,9 @@
 
    
         
-        <div>Name : @Model.Name</div>
-    <div>Email: @Model.Email</div>
-    <div>Department : @Model.Department</div>
+        <div>Name : @Model.Employee.Name</div>
+    <div>Email: @Model.Employee.Email</div>
+    <div>Department : @Model.Employee.Department</div>
    
 </body>
 </html>
