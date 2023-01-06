@@ -19,8 +19,8 @@ namespace EmployeeManagement_AspNetCore.Controllers
         public ViewResult Details()
         {
             var model = _employeeRepository.GetEmployee(1);
-            ViewData["Employee"] = model;
-            ViewData["PageTitle"] = "Employee Details PageTitle"; 
+            ViewBag.Employee = model;
+            ViewBag.PageTitle = "Employee Details PageTitle"; 
             return View(model);
         }
 
