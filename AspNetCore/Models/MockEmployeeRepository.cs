@@ -8,11 +8,11 @@ namespace EmployeeManagement_AspNetCore.Models
 {
     public class MockEmployeeRepository : IEmployeeRepository
     {
-        private List<Employee> _employees;
+        private List<Employee> _employeeList;
 
         public MockEmployeeRepository()
         {
-            _employees = new List<Employee>()
+            _employeeList = new List<Employee>()
             {
                     new Employee()    { Id = 1, Name = "Mary", Department = "HR", Email = "mary@gmail.com" },
                     new Employee()    { Id = 2, Name = "John", Department = "HR", Email = "John@gmail.com" },
@@ -20,9 +20,17 @@ namespace EmployeeManagement_AspNetCore.Models
                     new Employee()    { Id = 4, Name = "Joe", Department = "HR", Email = "Joe@gmail.com" },
             };
         }
+
+        public IEnumerable<Employee> GetAllEmployee()
+        {
+            return _employeeList;
+
+
+        }
+
         public Employee GetEmployee(int id)
         {
-            return _employees.Where(x=>x.Id==id).FirstOrDefault();
+            return _employeeList.Where(x=>x.Id==id).FirstOrDefault();
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using EmployeeManagement_AspNetCore.Interface;
 using EmployeeManagement_AspNetCore.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata.Ecma335;
+using System.Security.Cryptography.X509Certificates;
 
 namespace EmployeeManagement_AspNetCore.Controllers
 {
@@ -13,9 +15,11 @@ namespace EmployeeManagement_AspNetCore.Controllers
             _employeeRepository = employeeRepository;
 
         }
-        public string Index()
+        public ViewResult Index()
         {
-           return _employeeRepository.GetEmployee(1).Name; 
+            var result =  _employeeRepository.GetAllEmployee();
+            return View(result);
+            
         }
         public ViewResult Details()
         {
