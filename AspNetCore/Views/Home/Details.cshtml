@@ -1,5 +1,5 @@
-﻿<!DOCTYPE html>
-
+﻿@model EmployeeManagement_AspNetCore.Models.Employee;
+<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -9,9 +9,9 @@
 
    
         
-        <div>Name : @ViewBag.Employee.Name</div>
-    <div>Email: @ViewBag.Employee.Email</div>
-    <div>Department : @ViewBag.Employee.Department</div>
+        <div>Name : @Model.Name</div>
+    <div>Email: @Model.Email</div>
+    <div>Department : @Model.Department</div>
    
 </body>
 </html>
