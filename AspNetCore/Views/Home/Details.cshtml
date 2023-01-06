@@ -1,17 +1,12 @@
 ﻿@model EmployeeManagement_AspNetCore.ViewModel.HomeDetailsViewModel;
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.PageTitle</title>
-</head>
-<body>
-
-   
-        
-        <div>Name : @Model.Employee.Name</div>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Employee List Details";
+}  
+<h3>@Model.PageTitle</h3>
+           
+    <div>Name : @Model.Employee.Name</div>
     <div>Email: @Model.Employee.Email</div>
     <div>Department : @Model.Employee.Department</div>
    
-</body>
-</html>
+
