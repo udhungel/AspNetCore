@@ -25,7 +25,7 @@ namespace EmployeeManagement_AspNetCore.Controllers
         {
             HomeDetailsViewModel modelviewModel = new HomeDetailsViewModel()
             {
-                Employee = _employeeRepository.GetEmployee(1),
+                Employee = _employeeRepository.GetEmployee(id),
                 PageTitle = "Employee Details PageTitle"
             };           
             
