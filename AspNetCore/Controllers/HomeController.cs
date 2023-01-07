@@ -21,7 +21,7 @@ namespace EmployeeManagement_AspNetCore.Controllers
             return View(result);
             
         }
-        public ViewResult Details()
+        public ViewResult Details(int id)
         {
             HomeDetailsViewModel modelviewModel = new HomeDetailsViewModel()
             {

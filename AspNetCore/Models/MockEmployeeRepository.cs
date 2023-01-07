@@ -1,8 +1,7 @@
 ﻿using EmployeeManagement_AspNetCore.Interface;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Helpers;
-using System.Xml.Linq;
+
 
 namespace EmployeeManagement_AspNetCore.Models
 {

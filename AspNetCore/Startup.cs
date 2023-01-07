@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,7 +27,11 @@ namespace AspNetCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc(options=>options.EnableEndpointRouting = false);
+            //services.AddMvc(options=>options.EnableEndpointRouting = false);
+            ////services.AddRazorPages();
+            /////Old Way
+            //services.AddMvc();
+            // New Ways
             services.AddRazorPages();
             services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();
 
@@ -52,18 +57,21 @@ namespace AspNetCore
 
             app.UseStaticFiles();
 
-            
+
             app.UseRouting();
 
             app.UseAuthorization();
 
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapRazorPages();
+            //});
+
+            // app.UseMvcWithDefaultRoute();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
-
-            app.UseMvcWithDefaultRoute();
-
 
         }
     }
