@@ -27,12 +27,12 @@ namespace AspNetCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddMvc(options=>options.EnableEndpointRouting = false);
-            ////services.AddRazorPages();
             /////Old Way
-            //services.AddMvc();
-            // New Ways
+            //services.AddMvc(options=>options.EnableEndpointRouting = false);
+          
+            // New Ways - it call addmvc method 
             services.AddRazorPages();
+
             services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();
 
         }
@@ -70,6 +70,7 @@ namespace AspNetCore
             // app.UseMvcWithDefaultRoute();
             app.UseEndpoints(endpoints =>
             {
+                // need to pass the MapRoute and default convention 
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
 
