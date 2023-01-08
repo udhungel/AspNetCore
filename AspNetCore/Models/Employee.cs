@@ -12,6 +12,9 @@ namespace EmployeeManagement_AspNetCore.Models
         ErrorMessage = "Invalid email format")]
         [Required]        
         public string Email { get; set; }
-        public Dept Department { get; set; }       
+
+        //Since its a enum the underlying datatype is value type integar we need to make it  nullable 
+        [Required]        
+        public Dept? Department { get; set; }       
     }
 }
