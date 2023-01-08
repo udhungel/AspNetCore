@@ -8,6 +8,8 @@ namespace EmployeeManagement_AspNetCore.Interface
         Employee GetEmployee(int id);
         IEnumerable<Employee> GetAllEmployee();
 
+        Employee Add(Employee employee);
+
 
     }
 }

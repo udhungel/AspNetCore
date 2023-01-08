@@ -1,4 +1,5 @@
 ﻿using EmployeeManagement_AspNetCore.Interface;
+using EmployeeManagement_AspNetCore.Models;
 using EmployeeManagement_AspNetCore.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata.Ecma335;
@@ -32,10 +33,18 @@ namespace EmployeeManagement_AspNetCore.Controllers
             return View(modelviewModel);
         }
 
+        [HttpGet]
         public ViewResult Create()
         {
 
             return View();
+        }
+
+        [HttpPost]
+        public RedirectToActionResult Create(Employee employee)
+        {
+           Employee newEmployee =  _employeeRepository.Add(employee);
+            return RedirectToAction("details", new { id = newEmployee.Id });           
         }
 
     }

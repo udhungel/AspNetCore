@@ -20,6 +20,13 @@ namespace EmployeeManagement_AspNetCore.Models
             };
         }
 
+        public Employee Add(Employee employee)
+        {
+            employee.Id = _employeeList.Max(x => x.Id) + 1;
+           _employeeList.Add(employee);
+            return employee;
+        }
+
         public IEnumerable<Employee> GetAllEmployee()
         {
             return _employeeList;
