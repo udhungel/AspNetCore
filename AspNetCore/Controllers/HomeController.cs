@@ -32,5 +32,11 @@ namespace EmployeeManagement_AspNetCore.Controllers
             return View(modelviewModel);
         }
 
+        public ViewResult Create()
+        {
+
+            return View();
+        }
+
     }
 }
