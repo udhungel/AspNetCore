@@ -28,14 +28,15 @@ namespace AspNetCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContextPool<AppDbContext>(options => options.UseSqlServer("EmployeeSQLConnection"));
+            services.AddDbContextPool<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("EmployeeSQLConnection")));
             /////Old Way
             //services.AddMvc(options=>options.EnableEndpointRouting = false);
           
             // New Ways - it call addmvc method 
             services.AddRazorPages();
 
-            services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();
+            // we want the instance of the sql server instance to be alive and available throught out a single HTTP request
+            services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
 
         }
 

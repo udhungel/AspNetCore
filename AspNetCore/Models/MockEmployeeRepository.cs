@@ -25,18 +25,41 @@ namespace EmployeeManagement_AspNetCore.Models
             employee.Id = _employeeList.Max(x => x.Id) + 1;
            _employeeList.Add(employee);
             return employee;
-        }
+        }       
 
         public IEnumerable<Employee> GetAllEmployee()
         {
             return _employeeList;
-
-
         }
 
         public Employee GetEmployee(int id)
         {
             return _employeeList.Where(x=>x.Id==id).FirstOrDefault();
         }
+
+        public Employee Update(Employee employeeChanges)
+        {
+            Employee employee = _employeeList.FirstOrDefault(x => x.Id == employeeChanges.Id);
+            if (employee != null)
+            {
+                employee.Name = employeeChanges.Name;
+                employee.Department = employeeChanges.Department;
+                    employee.Email = employeeChanges.Email;           
+
+            }
+            return employee;
+        }
+
+        public Employee Delete(int id)
+        {
+            Employee employee = _employeeList.FirstOrDefault(x=>x.Id==id);
+            if (employee !=null)
+            {
+                _employeeList.Remove(employee); 
+
+            }
+            return employee;
+        }
+
     }
 }
