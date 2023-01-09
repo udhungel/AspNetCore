@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeManagement_AspNetCore", "AspNetCore\EmployeeManagement_AspNetCore.csproj", "{FA2F1C39-A70F-48BD-9AB4-60E4AD02A587}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManagement.DataAccess", "EmployeeManagement.DataAccess\EmployeeManagement.DataAccess.csproj", "{F164C25A-24CE-4F4A-9877-4CC2C23FA5C9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{FA2F1C39-A70F-48BD-9AB4-60E4AD02A587}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA2F1C39-A70F-48BD-9AB4-60E4AD02A587}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA2F1C39-A70F-48BD-9AB4-60E4AD02A587}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F164C25A-24CE-4F4A-9877-4CC2C23FA5C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F164C25A-24CE-4F4A-9877-4CC2C23FA5C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F164C25A-24CE-4F4A-9877-4CC2C23FA5C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F164C25A-24CE-4F4A-9877-4CC2C23FA5C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
