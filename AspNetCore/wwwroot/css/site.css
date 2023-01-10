@@ -24,3 +24,8 @@
 .dark-teal-text {
     color: #004d40;
 }
+
+.imageThumnail {
+    height : 290px;
+    width : auto; 
+}

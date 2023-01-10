@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 
 namespace EmployeeManagement_AspNetCore.Models
 {
@@ -15,6 +16,9 @@ namespace EmployeeManagement_AspNetCore.Models
 
         //Since its a enum the underlying datatype is value type integar we need to make it  nullable 
         [Required]        
-        public Dept? Department { get; set; }       
+        public Dept? Department { get; set; }
+
+        public string PhotoPath { get; set; } // In the DB we just store the Name 
+        
     }
 }
