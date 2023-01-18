@@ -31,7 +31,7 @@ namespace EmployeeManagement_AspNetCore.Controllers
         {
             HomeDetailsViewModel modelviewModel = new HomeDetailsViewModel()
             {
-                Employee = _employeeRepository.GetEmployee(1),
+                Employee = _employeeRepository.GetEmployee(id),
                 PageTitle = "Employee Details PageTitle"
             };           
             
@@ -62,8 +62,11 @@ namespace EmployeeManagement_AspNetCore.Controllers
                 uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
               string filePath = Path.Combine(uploadFolder, uniqueFileName);
                 // Use CopyTo() method provided by IFormFile interface to
-                // copy the file to wwwroot/images folder
-                model.Photo.CopyTo(new FileStream(filePath, FileMode.Create)); 
+                // copy the file to wwwroot/images folder               
+                using (FileStream fs = new FileStream(filePath, FileMode.Create))
+                {
+                    model.Photo.CopyTo(fs);
+                }
             }
             Employee newEmployee = new Employee
             {
