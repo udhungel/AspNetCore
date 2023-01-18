@@ -4,6 +4,7 @@ using EmployeeManagement_AspNetCore.ViewModel;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
@@ -64,21 +65,44 @@ namespace EmployeeManagement_AspNetCore.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(EmployeeCreateViewModel model)
+        public IActionResult Edit(EmployeeEditViewModel model)
         {
             if (!ModelState.IsValid)
-            return View();
-            string uniqueFileName = null;
+                return View();
+            Employee employee = _employeeRepository.GetEmployee(model.Id);
+            employee.Name = model.Name;
+            employee.Email = model.Email;
+            employee.Department = model.Department;
             if (model.Photo !=null)
             {
+                if (model.ExisitingPhotopath !=null)
+                {
+                   string filePath = Path.Combine(hostingEnviroment.WebRootPath, "images", model.ExisitingPhotopath);
+                   System.IO.File.Delete(filePath);
+
+                }
+                // it will return the unique filename that is saved in the images folder 
+                employee.PhotoPath = ProcessUploadedFile(model);
+            }        
+          
+            _employeeRepository.Update(employee);
+            return RedirectToAction("index");
+
+        }
+
+        private string ProcessUploadedFile(EmployeeCreateViewModel model)
+        {
+            string uniqueFileName = null;
+            if (model.Photo != null)
+            {
                 // The image must be uploaded to the images folder in wwwroot
-                    // To get the path of the wwwroot folder we are using the inject
-                    // HostingEnvironment service provided by ASP.NET Core
-              string uploadFolder = Path.Combine(hostingEnviroment.WebRootPath, "images");
+                // To get the path of the wwwroot folder we are using the inject
+                // HostingEnvironment service provided by ASP.NET Core
+                string uploadFolder = Path.Combine(hostingEnviroment.WebRootPath, "images");
                 // To make sure the file name is unique we are appending a new
                 // GUID value and and an underscore to the file name
                 uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
-              string filePath = Path.Combine(uploadFolder, uniqueFileName);
+                string filePath = Path.Combine(uploadFolder, uniqueFileName);
                 // Use CopyTo() method provided by IFormFile interface to
                 // copy the file to wwwroot/images folder               
                 using (FileStream fs = new FileStream(filePath, FileMode.Create))
@@ -86,6 +110,16 @@ namespace EmployeeManagement_AspNetCore.Controllers
                     model.Photo.CopyTo(fs);
                 }
             }
+
+            return uniqueFileName;
+        }
+
+        [HttpPost]
+        public IActionResult Create(EmployeeCreateViewModel model)
+        {
+            if (!ModelState.IsValid)
+            return View();
+            string uniqueFileName = ProcessUploadedFile(model);
             Employee newEmployee = new Employee
             {
                 Name = model.Name,
