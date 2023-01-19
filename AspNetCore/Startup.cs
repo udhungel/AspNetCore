@@ -49,10 +49,9 @@ namespace AspNetCore
             }
             else
             {
-                //instead of issuing redirect request it reExecutes the request pipieline with the Error/404 down the pipieline - because of that we are able to preserve our original request URL that user has given instead of Error/404 it will show the users localhost:Food/Bar/1 
-                
+                app.UseExceptionHandler("/Error");
                 app.UseStatusCodePagesWithReExecute("/Error/{0}");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+               
                 app.UseHsts();
             }
 
