@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -29,6 +30,9 @@ namespace AspNetCore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContextPool<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("EmployeeSQLConnection")));
+
+            //Identityuser => It has properties like Email,TwoFactorAuthentication , Entity frameword core is used to get user 
+            services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
             /////Old Way
             //services.AddMvc(options=>options.EnableEndpointRouting = false);
           
@@ -65,6 +69,9 @@ namespace AspNetCore
             app.UseRouting();
 
             app.UseAuthorization();
+
+            // this needs to added before the UseMvc routes 
+            app.UseAuthentication(); 
 
             //app.UseEndpoints(endpoints =>
             //{

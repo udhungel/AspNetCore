@@ -19,6 +19,8 @@ namespace EmployeeManagement_AspNetCore.Models
         public Dept? Department { get; set; }
 
         public string PhotoPath { get; set; } // In the DB we just store the Name 
+
+        public string Position { get; set; }
         
     }
 }
