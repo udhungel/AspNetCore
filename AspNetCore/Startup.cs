@@ -32,10 +32,17 @@ namespace AspNetCore
             services.AddDbContextPool<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("EmployeeSQLConnection")));
 
             //Identityuser => It has properties like Email,TwoFactorAuthentication , Entity frameword core is used to get user 
-            services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+            services.AddIdentity<IdentityUser,IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 10;
+                options.Password.RequiredUniqueChars = 3;
+                options.Password.RequireNonAlphanumeric = false;
+            }).AddEntityFrameworkStores<AppDbContext>();            
+            
             /////Old Way
             //services.AddMvc(options=>options.EnableEndpointRouting = false);
-          
+
+        
             // New Ways - it call addmvc method 
             services.AddRazorPages();
 
