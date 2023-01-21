@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject SignInManager<IdentityUser> signInManger;
+<!DOCTYPE html>
 
 <html>
 <head>    
@@ -30,10 +31,26 @@
                 </li>
                 </ul>
             <ul class ="navbar-nav ml-auto"> @*to push use ml-auto to the right most side *@
-                <li class ="nav-item">
-                     <a class ="nav-link" asp-controller="Account" asp-action="Register">Register</a> 
-                </li >
-            </ul >
+                    @if (signInManger.IsSignedIn(User))//claims principle is the logged in user 
+                    {
+                        <li class ="nav-item">
+                            <form method="post" asp-action="logout" asp-controller="account">
+                                <button type="submit" class="nav-link btn btn-link py-0" style="width:auto"> @*when user is signed in we used Logout link with the Name*@
+                                    Logout @User.Identity.Name
+                                </button>
+                            </form>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class ="nav-item">
+                            <a class ="nav-link" asp-controller="Account" asp-action="Register">Register</a> 
+                        </li >
+                        <li class ="nav-item">
+                        <a class ="nav-link" asp-controller="login" asp-action="Account">Login</a>  @* if the user is not log in *@
+                        </li >
+                    }
+                </ul >
          </div>
     </nav>
     <div >        
