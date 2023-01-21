@@ -1,6 +1,7 @@
 ﻿using EmployeeManagement_AspNetCore.Interface;
 using EmployeeManagement_AspNetCore.Models;
 using EmployeeManagement_AspNetCore.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -58,6 +59,7 @@ namespace EmployeeManagement_AspNetCore.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ViewResult Edit(int id)
         {           
             Employee employee = _employeeRepository.GetEmployee(id);

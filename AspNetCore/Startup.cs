@@ -1,10 +1,12 @@
 using EmployeeManagement_AspNetCore.Interface;
 using EmployeeManagement_AspNetCore.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -44,7 +46,12 @@ namespace AspNetCore
 
         
             // New Ways - it call addmvc method 
-            services.AddRazorPages();
+            services.AddMvc(config => {
+                var policy = new AuthorizationPolicyBuilder()
+                                .RequireAuthenticatedUser().Build();
+                config.Filters.Add(new AuthorizeFilter(policy));
+            }
+);
 
             // we want the instance of the sql server instance to be alive and available throught out a single HTTP request
             services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
@@ -75,10 +82,12 @@ namespace AspNetCore
 
             app.UseRouting();
 
+            // this needs to added before the UseMvc routes 
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
-            // this needs to added before the UseMvc routes 
-            app.UseAuthentication(); 
+         
 
             //app.UseEndpoints(endpoints =>
             //{
