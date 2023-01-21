@@ -55,5 +55,36 @@ namespace EmployeeManagement_AspNetCore.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel loginViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(loginViewModel);
+            }
+           
+          
+
+            var result = await _signInManager.PasswordSignInAsync(loginViewModel.Email,loginViewModel.Password
+                                                                 ,loginViewModel.RememberMe,false); // CreateAsync will hash the password of the user
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index", "Home");
+
+            }
+           
+            ModelState.AddModelError(string.Empty, "Invalid log in Attempt"); //These are displayed in the validation error in view 
+
+            
+            return View(loginViewModel);
+        }
     }
 }
