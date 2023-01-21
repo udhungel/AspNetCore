@@ -68,7 +68,7 @@ namespace EmployeeManagement_AspNetCore.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(LoginViewModel loginViewModel)
+        public async Task<IActionResult> Login(LoginViewModel loginViewModel,string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -82,7 +82,16 @@ namespace EmployeeManagement_AspNetCore.Controllers
 
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "Home");
+                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl)) // When you press create it generates a querystring so model binding will find the URL ?Login?ReturnURL=%2Fhome%2Fcreate
+                {
+                    return LocalRedirect(returnUrl);
+
+
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
 
             }
            
